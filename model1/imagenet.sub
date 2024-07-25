@@ -1,0 +1,33 @@
+# PyTorch training of convolutional neural network on ImageNet dataset
+
+# Specify the Singularity image to use
++SingularityImage = "osdf:///ospool/uc-shared/public/OSG-Staff/pytorch-2.1.1.sif"
+
+# Set the log, error, and output files
+log = imagenet_training.log.txt
+error = imagenet_training.err.txt
+output = imagenet_training.out.txt
+
+# Set the executable to run
+executable = imagenet.sh
+arguments = $(Process)
+
+# Transfer main script and dataset chunks
+transfer_input_files = main.py, chunks/ILSVRC.zip.part0, chunks/ILSVRC.zip.part1, chunks/ILSVRC.zip.part2, chunks/ILSVRC.zip.part3, chunks/ILSVRC.zip.part4, chunks/ILSVRC.zip.part5, chunks/ILSVRC.zip.part6, chunks/ILSVRC.zip.part7, chunks/ILSVRC.zip.part8, chunks/ILSVRC.zip.part9, chunks/ILSVRC.zip.part10, chunks/ILSVRC.zip.part11, chunks/ILSVRC.zip.part12, chunks/ILSVRC.zip.part13, chunks/ILSVRC.zip.part14, chunks/ILSVRC.zip.part15, chunks/ILSVRC.zip.part16, chunks/ILSVRC.zip.part17, chunks/ILSVRC.zip.part18, chunks/ILSVRC.zip.part19, chunks/ILSVRC.zip.part20, chunks/ILSVRC.zip.part21, chunks/ILSVRC.zip.part22, chunks/ILSVRC.zip.part23, chunks/ILSVRC.zip.part24, chunks/ILSVRC.zip.part25, chunks/ILSVRC.zip.part26, chunks/ILSVRC.zip.part27, chunks/ILSVRC.zip.part28, chunks/ILSVRC.zip.part29, chunks/ILSVRC.zip.part30, chunks/ILSVRC.zip.part31
+
+
+# Specify file transfer options
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+# We require a machine with a compatible version of the CUDA driver
+require_gpus = (DriverVersion >= 10.1)
+
+# Request resources
+request_cpus = 4
+request_gpus = 1
+request_memory = 16GB
+request_disk = 20GB
+
+# Queue the job
+queue 1
